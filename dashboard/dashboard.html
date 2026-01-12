@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Moderno</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Ícones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background-color: #f5f7fb;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #1e1e2f, #2d2d44);
+        }
+
+        .sidebar a {
+            color: #cfd2ff;
+            text-decoration: none;
+            padding: 12px;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar p-3">
+            <h4 class="text-white mb-4">📊 Dashboard</h4>
+            <a href="#"><i class="bi bi-house"></i> Início</a>
+            <a href="#"><i class="bi bi-bar-chart"></i> Relatórios</a>
+            <a href="#"><i class="bi bi-people"></i> Usuários</a>
+            <a href="#"><i class="bi bi-gear"></i> Configurações</a>
+        </nav>
+
+        <!-- Conteúdo -->
+        <main class="col-md-10 ms-sm-auto px-4 py-4">
+
+            <h2 class="mb-4">Visão Geral</h2>
+
+            <!-- Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h6 class="text-muted">Usuários</h6>
+                        <h3 id="usuarios">1.245</h3>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h6 class="text-muted">Vendas</h6>
+                        <h3 id="vendas">R$ 32.500</h3>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h6 class="text-muted">Pedidos</h6>
+                        <h3 id="pedidos">384</h3>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h6 class="text-muted">Crescimento</h6>
+                        <h3 class="text-success">+18%</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h5>Vendas Mensais</h5>
+                        <canvas id="graficoVendas"></canvas>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h5>Usuários Ativos</h5>
+                        <canvas id="graficoUsuarios"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Gráfico de Vendas
+    new Chart(document.getElementById('graficoVendas'), {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+            datasets: [{
+                label: 'Vendas (R$)',
+                data: [12000, 15000, 14000, 18000, 22000, 25000],
+                borderColor: '#4f46e5',
+                backgroundColor: 'rgba(79,70,229,0.2)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+
+    // Gráfico de Usuários
+    new Chart(document.getElementById('graficoUsuarios'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Ativos', 'Inativos'],
+            datasets: [{
+                data: [75, 25],
+                backgroundColor: ['#22c55e', '#e5e7eb']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>
+
+</body>
+</html>
