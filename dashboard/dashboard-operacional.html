@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Operacional Moderno</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Inter", Arial, sans-serif;
+        background: #f5f6fa;
+        color: #333;
+        overflow: hidden; /* impede scroll */
+    }
+
+    header {
+        background: #1f2937;
+        color: white;
+        padding: 12px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .container {
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 20px;
+        height: calc(100vh - 80px);
+        box-sizing: border-box;
+    }
+
+    /* Painel esquerdo */
+    .left-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* KPI CARDS */
+    .kpis {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .kpi-card {
+        background: white;
+        padding: 15px;
+        border-radius: 14px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .kpi-title {
+        font-size: 13px;
+        color: #6b7280;
+        font-weight: 600;
+    }
+
+    .kpi-value {
+        font-size: 26px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    .kpi-sub {
+        font-size: 12px;
+        color: #6b7280;
+    }
+
+    /* Painel direito */
+    .right-panel {
+        display: grid;
+        grid-template-rows: 1fr 1fr auto;
+        gap: 20px;
+        height: 100%;
+    }
+
+    .chart-box {
+        background: white;
+        border-radius: 14px;
+        padding: 15px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .section-title {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #374151;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: 140px !important;
+    }
+
+    /* TABLE */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #eee;
+        font-size: 13px;
+    }
+
+    thead {
+        background: #e5e7eb;
+    }
+</style>
+</head>
+
+<body>
+
+<header>Dashboard Operacional</header>
+
+<div class="container">
+
+    <!-- LEFT PANEL (KPIs) -->
+    <div class="left-panel">
+
+        <div class="kpis">
+            <div class="kpi-card">
+                <div class="kpi-title">Pedidos Hoje</div>
+                <div class="kpi-value" id="pedidos">0</div>
+                <div class="kpi-sub">em processamento</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">Pendências</div>
+                <div class="kpi-value" id="pendencias">0</div>
+                <div class="kpi-sub">aguardando ação</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">TMA (min)</div>
+                <div class="kpi-value" id="tma">0</div>
+                <div class="kpi-sub">tempo médio</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">Atendimentos</div>
+                <div class="kpi-value" id="atendimentos">0</div>
+                <div class="kpi-sub">últimas 24h</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL (Charts + table) -->
+    <div class="right-panel">
+
+        <div class="chart-box">
+            <div class="section-title">Produção – Últimos 7 Dias</div>
+            <canvas id="graficoLinha"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <div class="section-title">Volume por Categoria</div>
+            <canvas id="graficoBarras"></canvas>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Operação</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="tabela">
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- Chart.js FIRST -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+/* KPIs */
+document.getElementById("pedidos").textContent = 128;
+document.getElementById("pendencias").textContent = 14;
+document.getElementById("tma").textContent = 5;
+document.getElementById("atendimentos").textContent = 243;
+
+/* TABLE */
+const atividades = [
+    { data: "24/02/2026", op: "Atualização", status: "Concluído" },
+    { data: "24/02/2026", op: "Agendamento", status: "Pendente" },
+    { data: "23/02/2026", op: "Cadastro", status: "Concluído" }
+];
+
+const tabela = document.getElementById("tabela");
+atividades.forEach(a => {
+    tabela.innerHTML += `
+        <tr>
+            <td>${a.data}</td>
+            <td>${a.op}</td>
+            <td>${a.status}</td>
+        </tr>`;
+});
+
+/* LINE CHART */
+new Chart(document.getElementById("graficoLinha"), {
+    type: "line",
+    data: {
+        labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+        datasets: [{
+            data: [22, 30, 45, 38, 50, 48, 55],
+            borderWidth: 3,
+            tension: 0.3
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+/* BAR CHART */
+new Chart(document.getElementById("graficoBarras"), {
+    type: "bar",
+    data: {
+        labels: ["Categoria A", "Categoria B", "Categoria C"],
+        datasets: [{
+            data: [120, 80, 95],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+
+</body>
+</html>
