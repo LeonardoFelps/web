@@ -72,6 +72,6 @@ URL final esperada:
 
 ## Screenshots
 
-![Galeria](./dashboard/assets/index.png)
-![Dashboard Executivo](./dashboard/assets/executive.png)
-![Dashboard Operacional](./dashboard/assets/operational.png)
+![Galeria](./dashboard/assets/index-v2.png)
+![Dashboard Executivo](./dashboard/assets/executive-v2.png)
+![Dashboard Operacional](./dashboard/assets/operational-v2.png)
