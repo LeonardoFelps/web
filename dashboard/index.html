@@ -6,9 +6,17 @@
   <title>Web Demos - Dashboards</title>
   <style>
     body { margin: 0; font-family: Inter, Segoe UI, Arial, sans-serif; background: #f3f6fb; color: #0f172a; }
-    .container { max-width: 980px; margin: 0 auto; padding: 28px 20px 40px; }
-    h1 { margin: 0 0 8px; }
-    p { margin: 0 0 20px; color: #475569; }
+    .hero {
+      background: linear-gradient(120deg, #0f172a 0%, #1e293b 45%, #1d4ed8 100%);
+      color: #fff;
+      border-bottom: 1px solid #1f2937;
+    }
+    .hero-inner { max-width: 980px; margin: 0 auto; padding: 28px 20px; }
+    .hero h1 { margin: 0 0 10px; font-size: 2rem; }
+    .hero p { margin: 0; color: #cbd5e1; max-width: 780px; line-height: 1.5; }
+    .container { max-width: 980px; margin: 0 auto; padding: 24px 20px 40px; }
+    .section-title { margin: 0 0 12px; font-size: 1.15rem; }
+    .section-sub { margin: 0 0 20px; color: #475569; }
     .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .card { background: #fff; border: 1px solid #dbe4f4; border-radius: 10px; padding: 16px; }
     .tag { display: inline-block; font-size: 12px; color: #4338ca; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 999px; padding: 2px 8px; margin-bottom: 10px; }
@@ -16,12 +24,27 @@
     .desc { font-size: 14px; color: #64748b; margin-bottom: 14px; line-height: 1.45; }
     a.button { display: inline-block; text-decoration: none; border: 1px solid #1d4ed8; color: #1d4ed8; padding: 8px 12px; border-radius: 8px; font-weight: 600; }
     a.button:hover { background: #1d4ed8; color: #fff; }
+    .hint {
+      margin-top: 18px;
+      background: #fff;
+      border: 1px solid #dbe4f4;
+      border-radius: 10px;
+      padding: 12px;
+      color: #475569;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Web Demos</h1>
+      <p>Demonstrações públicas de dashboards para cenários de gestão e operação. Interface limpa, leitura rápida de métricas e foco em tomada de decisão.</p>
+    </div>
+  </section>
   <div class="container">
-    <h1>Web Demos</h1>
-    <p>Demonstrações públicas de dashboards para cenários executivos e operacionais.</p>
+    <h2 class="section-title">Galeria de dashboards</h2>
+    <p class="section-sub">Escolha uma demo para visualizar o layout e os componentes.</p>
 
     <div class="grid">
       <article class="card">
@@ -37,6 +60,10 @@
         <div class="desc">Monitora pedidos, pendências, TMA, volume por categoria e atividades recentes com foco em execução.</div>
         <a class="button" href="./dashboard-operacional.html">Abrir demo</a>
       </article>
+    </div>
+
+    <div class="hint">
+      Dica: estes demos foram pensados para apresentação pública de UI em contexto de produto.
     </div>
   </div>
 </body>

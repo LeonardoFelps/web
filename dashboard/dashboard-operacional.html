@@ -18,7 +18,27 @@
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: Inter, Segoe UI, Arial, sans-serif; background: var(--bg); color: var(--text); }
-    header { background: #111827; color: #fff; padding: 14px 20px; font-weight: 600; font-size: 18px; }
+    header {
+      background: #111827;
+      color: #fff;
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .back-link {
+      color: #e2e8f0;
+      text-decoration: none;
+      border: 1px solid rgba(226, 232, 240, .45);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .back-link:hover { background: rgba(255,255,255,.08); color: #fff; }
     .layout { padding: 20px; display: grid; gap: 18px; grid-template-columns: 320px 1fr; min-height: calc(100vh - 52px); }
     .left, .right { display: grid; gap: 18px; align-content: start; }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
@@ -41,7 +61,10 @@
   </style>
 </head>
 <body>
-  <header>Dashboard Operacional</header>
+  <header>
+    <span>Dashboard Operacional</span>
+    <a class="back-link" href="./index.html">Voltar para a galeria</a>
+  </header>
   <div class="layout">
     <section class="left">
       <div class="card"><div class="kpi-title">Pedidos hoje</div><div class="kpi-value">128</div><div class="kpi-sub kpi-up">+12% em relação a ontem</div></div>

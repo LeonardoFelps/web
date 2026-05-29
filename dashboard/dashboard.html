@@ -13,6 +13,19 @@
     .brand { font-weight: 700; }
     .menu-link { color: #c7d2fe; text-decoration: none; padding: 10px 12px; display: block; border-radius: 8px; transition: .2s ease; }
     .menu-link:hover, .menu-link.active { background: rgba(255, 255, 255, .1); color: #fff; }
+    .menu-back {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #e2e8f0;
+      text-decoration: none;
+      border: 1px solid rgba(226, 232, 240, .4);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: .88rem;
+    }
+    .menu-back:hover { background: rgba(255,255,255,.08); color: #fff; }
     .metric-card, .panel-card { border: 1px solid #dbe4f4; border-radius: 10px; background: #fff; }
     .metric-value { font-size: 1.6rem; font-weight: 700; }
     .panel-title { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
@@ -29,11 +42,20 @@
         <a class="menu-link" href="#"><i class="bi bi-bar-chart me-2"></i>Relatórios</a>
         <a class="menu-link" href="#"><i class="bi bi-people me-2"></i>Clientes</a>
         <a class="menu-link" href="#"><i class="bi bi-sliders me-2"></i>Configurações</a>
+        <a class="menu-back" href="./index.html"><i class="bi bi-arrow-left"></i>Voltar para a galeria</a>
       </nav>
       <main class="col-md-10 ms-sm-auto px-4 py-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
           <h2 class="mb-0">Visão Executiva</h2>
-          <span class="badge rounded-pill badge-soft">Atualizado agora</span>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-primary">Exportar</button>
+            <span class="badge rounded-pill badge-soft">Atualizado agora</span>
+          </div>
+        </div>
+        <div class="d-flex gap-2 mb-3">
+          <button class="btn btn-sm btn-primary">7 dias</button>
+          <button class="btn btn-sm btn-outline-primary">30 dias</button>
+          <button class="btn btn-sm btn-outline-primary">90 dias</button>
         </div>
         <div class="row g-3 mb-3">
           <div class="col-12 col-md-6 col-lg-3"><div class="metric-card p-3"><small class="text-muted d-block">Clientes ativos</small><div class="metric-value">1.245</div><small class="text-success"><i class="bi bi-arrow-up-right"></i> +6,2% no mês</small></div></div>
@@ -44,6 +66,23 @@
         <div class="row g-3">
           <div class="col-12 col-lg-7"><div class="panel-card p-3"><div class="panel-title">Receita mensal</div><div class="chart-wrap"><canvas id="graficoVendas"></canvas></div></div></div>
           <div class="col-12 col-lg-5"><div class="panel-card p-3"><div class="panel-title">Status da base</div><div class="chart-wrap"><canvas id="graficoUsuarios"></canvas></div></div></div>
+        </div>
+        <div class="row g-3 mt-1">
+          <div class="col-12">
+            <div class="panel-card p-3">
+              <div class="panel-title">Top canais de aquisição</div>
+              <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                  <thead><tr><th>Canal</th><th>Leads</th><th>Conversão</th><th>Receita</th></tr></thead>
+                  <tbody>
+                    <tr><td>Indicação</td><td>124</td><td>38%</td><td>R$ 9.820</td></tr>
+                    <tr><td>Google</td><td>96</td><td>29%</td><td>R$ 7.120</td></tr>
+                    <tr><td>Instagram</td><td>87</td><td>22%</td><td>R$ 5.340</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
