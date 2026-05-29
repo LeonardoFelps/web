@@ -1,10 +1,15 @@
-const { applySavedTheme, toggleTheme, showState } = window.DemoShared;
+const { applySavedTheme, toggleTheme, showState, exportCsv } = window.DemoShared;
 
 let store = null;
 let productionChart = null;
 let volumeChart = null;
 let activePeriod = "7d";
+let activeLang = "pt-BR";
 const STATE_IDS = ["state-loading", "state-empty", "state-error"];
+const I18N = {
+  "pt-BR": { dark: "Tema escuro", light: "Tema claro", export: "Exportar CSV", reload: "Atualizar" },
+  "en-US": { dark: "Dark theme", light: "Light theme", export: "Export CSV", reload: "Refresh" }
+};
 const FALLBACK_DATA = {
   periods: {
     "7d": {
@@ -122,15 +127,30 @@ async function loadData() {
 function initEvents() {
   document.getElementById("theme-toggle").addEventListener("click", () => {
     const mode = toggleTheme();
-    document.getElementById("theme-toggle").textContent = mode === "dark" ? "Tema claro" : "Tema escuro";
+    const t = I18N[activeLang] || I18N["pt-BR"];
+    document.getElementById("theme-toggle").textContent = mode === "dark" ? t.light : t.dark;
   });
   document.getElementById("reload-data").addEventListener("click", loadData);
+  document.getElementById("export-csv").addEventListener("click", () => {
+    const activities = store?.periods?.[activePeriod]?.activities || store?.periods?.["7d"]?.activities || [];
+    exportCsv("atividades-operacionais.csv", ["Data", "Operacao", "Status"], activities.map((a) => [a.date, a.operation, a.status]));
+  });
+  document.getElementById("lang-select").addEventListener("change", (e) => {
+    activeLang = e.target.value;
+    const t = I18N[activeLang] || I18N["pt-BR"];
+    document.getElementById("theme-toggle").textContent = (document.documentElement.getAttribute("data-theme") === "dark") ? t.light : t.dark;
+    document.getElementById("reload-data").textContent = t.reload;
+    document.getElementById("export-csv").textContent = t.export;
+  });
   document.querySelectorAll(".period-btn").forEach((btn) => btn.addEventListener("click", () => renderPeriod(btn.dataset.period)));
 }
 
 function initThemeLabel() {
   const mode = applySavedTheme();
-  document.getElementById("theme-toggle").textContent = mode === "dark" ? "Tema claro" : "Tema escuro";
+  const t = I18N[activeLang] || I18N["pt-BR"];
+  document.getElementById("theme-toggle").textContent = mode === "dark" ? t.light : t.dark;
+  document.getElementById("reload-data").textContent = t.reload;
+  document.getElementById("export-csv").textContent = t.export;
 }
 
 initThemeLabel();

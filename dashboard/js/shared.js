@@ -31,5 +31,19 @@
     }
   }
 
-  window.DemoShared = { applySavedTheme, toggleTheme, currencyBRL, showState };
+  function exportCsv(filename, headers, rows) {
+    const escapeCell = (value) => `"${String(value ?? "").replace(/"/g, '""')}"`;
+    const csv = [headers.map(escapeCell).join(","), ...rows.map((row) => row.map(escapeCell).join(","))].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  window.DemoShared = { applySavedTheme, toggleTheme, currencyBRL, showState, exportCsv };
 })();

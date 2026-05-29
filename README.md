@@ -32,10 +32,12 @@ dashboard/
 
 - dados dinâmicos via JSON
 - filtros por período (`7d`, `30d`, `90d`)
+- seletor de idioma (`PT`/`EN`) nos dashboards
 - tema claro/escuro com persistência (`localStorage`)
 - estados de UI: loading, vazio e erro
 - navegação entre demos com botão de retorno
 - semântica e rótulos para acessibilidade básica
+- exportação CSV para tabelas de canais e atividades
 
 ## Como executar
 
@@ -47,19 +49,29 @@ python -m http.server 8010
 
 Depois acesse: `http://127.0.0.1:8010/dashboard/`
 
+## Testes (Playwright)
+
+```bash
+npm install
+npx playwright install
+npm run test:e2e
+```
+
 ## Deploy no GitHub Pages
 
+Deploy automático configurado em `.github/workflows/pages.yml`.
+
 1. No repositório `web`, abra **Settings > Pages**
-2. Em **Source**, selecione `Deploy from a branch`
-3. Branch: `main` / pasta: `/ (root)`
-4. Salve e aguarde publicação
+2. Em **Build and deployment**, selecione **GitHub Actions**
+3. Faça push na branch `main`
+4. Aguarde o workflow **Deploy dashboard to GitHub Pages**
 
 URL final esperada:
 
 `https://leonardofelps.github.io/web/dashboard/`
 
-## Próximas melhorias sugeridas
+## Screenshots
 
-- exportação CSV dos dados da tabela
-- mini painel de filtros avançados por canal/status
-- simulação de endpoint para troca de ambiente (`mock`/`prod`)
+![Galeria](./dashboard/assets/index.png)
+![Dashboard Executivo](./dashboard/assets/executive.png)
+![Dashboard Operacional](./dashboard/assets/operational.png)

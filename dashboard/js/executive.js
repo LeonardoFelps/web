@@ -1,12 +1,17 @@
-const { applySavedTheme, toggleTheme, currencyBRL, showState } = window.DemoShared;
+const { applySavedTheme, toggleTheme, currencyBRL, showState, exportCsv } = window.DemoShared;
 
 const PERIODS = ["7d", "30d", "90d"];
 let dataStore = null;
 let revenueChart = null;
 let statusChart = null;
 let activePeriod = "7d";
+let activeLang = "pt-BR";
 
 const STATE_IDS = ["state-loading", "state-empty", "state-error"];
+const I18N = {
+  "pt-BR": { title: "Visão Executiva", reload: "Atualizar", export: "Exportar CSV", dark: "Tema escuro", light: "Tema claro" },
+  "en-US": { title: "Executive Overview", reload: "Refresh", export: "Export CSV", dark: "Dark theme", light: "Light theme" }
+};
 const FALLBACK_DATA = {
   periods: {
     "7d": {
@@ -46,6 +51,15 @@ function renderChannels(channels) {
     row.innerHTML = `<td>${ch.name}</td><td>${ch.leads}</td><td>${ch.conversion}</td><td>${ch.revenue}</td>`;
     tbody.appendChild(row);
   }
+}
+
+function applyLanguage() {
+  const t = I18N[activeLang] || I18N["pt-BR"];
+  document.getElementById("title-main").textContent = t.title;
+  document.getElementById("reload-data").textContent = t.reload;
+  document.getElementById("export-csv").textContent = t.export;
+  const isDark = (document.documentElement.getAttribute("data-theme") || "light") === "dark";
+  document.getElementById("theme-toggle").textContent = isDark ? t.light : t.dark;
 }
 
 function renderCharts(periodData) {
@@ -120,9 +134,18 @@ async function loadData() {
 function initEvents() {
   document.getElementById("theme-toggle").addEventListener("click", () => {
     const mode = toggleTheme();
-    document.getElementById("theme-toggle").textContent = mode === "dark" ? "Tema claro" : "Tema escuro";
+    const t = I18N[activeLang] || I18N["pt-BR"];
+    document.getElementById("theme-toggle").textContent = mode === "dark" ? t.light : t.dark;
   });
   document.getElementById("reload-data").addEventListener("click", loadData);
+  document.getElementById("export-csv").addEventListener("click", () => {
+    const channels = dataStore?.periods?.[activePeriod]?.channels || dataStore?.periods?.["7d"]?.channels || [];
+    exportCsv("canais-aquisicao.csv", ["Canal", "Leads", "Conversao", "Receita"], channels.map((c) => [c.name, c.leads, c.conversion, c.revenue]));
+  });
+  document.getElementById("lang-select").addEventListener("change", (e) => {
+    activeLang = e.target.value;
+    applyLanguage();
+  });
   document.querySelectorAll(".period-btn").forEach((btn) => {
     btn.addEventListener("click", () => renderPeriod(btn.dataset.period));
   });
@@ -130,9 +153,11 @@ function initEvents() {
 
 function initThemeLabel() {
   const mode = applySavedTheme();
-  document.getElementById("theme-toggle").textContent = mode === "dark" ? "Tema claro" : "Tema escuro";
+  const t = I18N[activeLang] || I18N["pt-BR"];
+  document.getElementById("theme-toggle").textContent = mode === "dark" ? t.light : t.dark;
 }
 
 initThemeLabel();
+applyLanguage();
 initEvents();
 loadData();

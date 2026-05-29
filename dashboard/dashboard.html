@@ -23,10 +23,15 @@
 
       <main class="col-md-10 ms-sm-auto px-4 py-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
-          <h2 class="mb-0">Visão Executiva</h2>
+          <h2 class="mb-0" id="title-main">Visão Executiva</h2>
           <div class="d-flex align-items-center gap-2">
             <a href="./index.html" class="btn btn-sm btn-outline-dark d-md-none">Voltar para a galeria</a>
             <button id="reload-data" class="btn btn-sm btn-outline-primary" aria-label="Atualizar dados">Atualizar</button>
+            <button id="export-csv" class="btn btn-sm btn-outline-primary" aria-label="Exportar canais">Exportar CSV</button>
+            <select id="lang-select" class="form-select form-select-sm" style="width:auto" aria-label="Idioma">
+              <option value="pt-BR">PT</option>
+              <option value="en-US">EN</option>
+            </select>
             <button id="theme-toggle" class="btn btn-sm btn-outline-secondary" aria-label="Alternar tema">Tema escuro</button>
             <span class="badge rounded-pill badge-soft">Dados dinâmicos</span>
           </div>
