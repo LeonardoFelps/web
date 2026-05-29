@@ -1,26 +1,65 @@
 # Web Demos
 
-Coleção de demos web para apresentar interface, organização visual e leitura de indicadores.
+Vitrine pública de dashboards front-end para cenários de gestão e operação.
 
-## Demos disponíveis
+## Demos
 
-- `dashboard/index.html` - Galeria principal com acesso às demos
-- `dashboard/dashboard.html` - Dashboard executivo com KPIs e gráficos
-- `dashboard/dashboard-operacional.html` - Dashboard operacional com atividades e métricas diárias
+- `dashboard/index.html` - galeria principal
+- `dashboard/dashboard.html` - dashboard executivo
+- `dashboard/dashboard-operacional.html` - dashboard operacional
 
-## Como abrir
+## Estrutura
 
-Como os arquivos são HTML estático, você pode abrir direto no navegador:
+```text
+dashboard/
+  css/
+    dashboard.css
+    index.css
+    operational.css
+  data/
+    executive-data.json
+    operational-data.json
+  js/
+    executive.js
+    operational.js
+    shared.js
+  index.html
+  dashboard.html
+  dashboard-operacional.html
+```
 
-1. Acesse `dashboard/index.html` para a vitrine.
-2. Ou abra qualquer demo individualmente.
+## Recursos implementados
 
-## Objetivo do repositório
+- dados dinâmicos via JSON
+- filtros por período (`7d`, `30d`, `90d`)
+- tema claro/escuro com persistência (`localStorage`)
+- estados de UI: loading, vazio e erro
+- navegação entre demos com botão de retorno
+- semântica e rótulos para acessibilidade básica
 
-Este repositório funciona como vitrine pública de front-end aplicado a cenários de operação e gestão.
+## Como executar
 
-## Próximos passos
+Pode abrir os arquivos HTML direto no navegador, ou usar um servidor local simples:
 
-- Adicionar versão com tema escuro
-- Incluir filtros com atualização dinâmica dos dados
-- Publicar screenshots no README para visualização rápida
+```bash
+python -m http.server 8010
+```
+
+Depois acesse: `http://127.0.0.1:8010/dashboard/`
+
+## Deploy no GitHub Pages
+
+1. No repositório `web`, abra **Settings > Pages**
+2. Em **Source**, selecione `Deploy from a branch`
+3. Branch: `main` / pasta: `/ (root)`
+4. Salve e aguarde publicação
+
+URL final esperada:
+
+`https://leonardofelps.github.io/web/dashboard/`
+
+## Próximas melhorias sugeridas
+
+- exportação CSV dos dados da tabela
+- mini painel de filtros avançados por canal/status
+- simulação de endpoint para troca de ambiente (`mock`/`prod`)

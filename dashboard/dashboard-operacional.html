@@ -4,107 +4,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Operacional</title>
+  <link rel="stylesheet" href="./css/operational.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    :root {
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --line: #e5e7eb;
-      --primary: #2563eb;
-      --success: #16a34a;
-      --warn: #d97706;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Inter, Segoe UI, Arial, sans-serif; background: var(--bg); color: var(--text); }
-    header {
-      background: #111827;
-      color: #fff;
-      padding: 12px 20px;
-      font-weight: 600;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .back-link {
-      color: #e2e8f0;
-      text-decoration: none;
-      border: 1px solid rgba(226, 232, 240, .45);
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-    .back-link:hover { background: rgba(255,255,255,.08); color: #fff; }
-    .layout { padding: 20px; display: grid; gap: 18px; grid-template-columns: 320px 1fr; min-height: calc(100vh - 52px); }
-    .left, .right { display: grid; gap: 18px; align-content: start; }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
-    .kpi-title { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .3px; }
-    .kpi-value { font-size: 26px; font-weight: 700; margin: 6px 0; }
-    .kpi-sub { font-size: 12px; color: var(--muted); }
-    .kpi-up { color: var(--success); font-weight: 600; }
-    .kpi-warn { color: var(--warn); font-weight: 600; }
-    .chart-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-    .chart-wrap { height: 180px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 10px; border-bottom: 1px solid var(--line); text-align: left; }
-    th { color: #374151; background: #f8fafc; font-weight: 600; }
-    .status { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-    .ok { background: #dcfce7; color: #166534; }
-    .pendente { background: #fef3c7; color: #92400e; }
-    @media (max-width: 1000px) {
-      .layout { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
 <body>
   <header>
     <span>Dashboard Operacional</span>
-    <a class="back-link" href="./index.html">Voltar para a galeria</a>
+    <div class="header-actions">
+      <div class="period-switch" role="group" aria-label="Filtro de período">
+        <button class="period-btn active" data-period="7d">7 dias</button>
+        <button class="period-btn" data-period="30d">30 dias</button>
+        <button class="period-btn" data-period="90d">90 dias</button>
+      </div>
+      <button id="theme-toggle" class="theme-btn" aria-label="Alternar tema">Tema escuro</button>
+      <button id="reload-data" class="theme-btn" aria-label="Atualizar dados">Atualizar</button>
+      <a class="back-link" href="./index.html">Voltar para a galeria</a>
+    </div>
   </header>
   <div class="layout">
     <section class="left">
-      <div class="card"><div class="kpi-title">Pedidos hoje</div><div class="kpi-value">128</div><div class="kpi-sub kpi-up">+12% em relação a ontem</div></div>
-      <div class="card"><div class="kpi-title">Pendências</div><div class="kpi-value">14</div><div class="kpi-sub kpi-warn">7 críticas aguardando ação</div></div>
-      <div class="card"><div class="kpi-title">TMA (min)</div><div class="kpi-value">5,2</div><div class="kpi-sub">Tempo médio de atendimento</div></div>
-      <div class="card"><div class="kpi-title">Atendimentos (24h)</div><div class="kpi-value">243</div><div class="kpi-sub">SLA dentro da meta</div></div>
+      <div class="card"><div class="kpi-title">Pedidos hoje</div><div class="kpi-value" id="kpi-orders">-</div><div class="kpi-sub" id="kpi-orders-sub">-</div></div>
+      <div class="card"><div class="kpi-title">Pendências</div><div class="kpi-value" id="kpi-pending">-</div><div class="kpi-sub" id="kpi-pending-sub">-</div></div>
+      <div class="card"><div class="kpi-title">TMA (min)</div><div class="kpi-value" id="kpi-tma">-</div><div class="kpi-sub" id="kpi-tma-sub">-</div></div>
+      <div class="card"><div class="kpi-title">Atendimentos (24h)</div><div class="kpi-value" id="kpi-service">-</div><div class="kpi-sub" id="kpi-service-sub">-</div></div>
     </section>
     <section class="right">
+      <div id="state-loading" class="state-box active" role="status">Carregando dados...</div>
+      <div id="state-empty" class="state-box">Sem dados para o período selecionado.</div>
+      <div id="state-error" class="state-box">Erro ao carregar dados. Tente novamente.</div>
+
       <div class="card">
-        <div class="chart-title">Produção: últimos 7 dias</div>
-        <div class="chart-wrap"><canvas id="graficoLinha"></canvas></div>
+        <div class="chart-title">Produção por período</div>
+        <div class="chart-wrap"><canvas id="graficoLinha" aria-label="Produção por período" role="img"></canvas></div>
       </div>
       <div class="card">
         <div class="chart-title">Volume por categoria</div>
-        <div class="chart-wrap"><canvas id="graficoBarras"></canvas></div>
+        <div class="chart-wrap"><canvas id="graficoBarras" aria-label="Volume por categoria" role="img"></canvas></div>
       </div>
       <div class="card">
         <div class="chart-title">Últimas atividades</div>
-        <table>
+        <table aria-label="Tabela de atividades">
           <thead><tr><th>Data</th><th>Operação</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>29/05/2026 14:22</td><td>Atualização de cadastro</td><td><span class="status ok">Concluído</span></td></tr>
-            <tr><td>29/05/2026 13:11</td><td>Agendamento</td><td><span class="status pendente">Pendente</span></td></tr>
-            <tr><td>29/05/2026 11:48</td><td>Geração de relatório</td><td><span class="status ok">Concluído</span></td></tr>
-          </tbody>
+          <tbody id="activities-body"></tbody>
         </table>
       </div>
     </section>
   </div>
-  <script>
-    new Chart(document.getElementById("graficoLinha"), {
-      type: "line",
-      data: { labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"], datasets: [{ data: [22, 30, 45, 38, 50, 48, 55], borderWidth: 2.5, borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,.15)", fill: true, tension: 0.3 }] },
-      options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
-    });
-    new Chart(document.getElementById("graficoBarras"), {
-      type: "bar",
-      data: { labels: ["Atendimento", "Financeiro", "Comercial"], datasets: [{ data: [120, 80, 95], borderWidth: 1, backgroundColor: ["#2563eb", "#16a34a", "#9333ea"] }] },
-      options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
-    });
-  </script>
+  <script src="./js/shared.js"></script>
+  <script src="./js/operational.js"></script>
 </body>
 </html>

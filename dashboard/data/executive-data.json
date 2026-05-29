@@ -1,0 +1,52 @@
+{
+  "periods": {
+    "7d": {
+      "metrics": {
+        "activeClients": { "value": 1245, "deltaText": "+6,2% no período", "deltaType": "up" },
+        "revenue": { "value": 32500, "deltaText": "+18,0%", "deltaType": "up" },
+        "closedOrders": { "value": 384, "deltaText": "meta: 420", "deltaType": "neutral" },
+        "avgTicket": { "value": 248, "deltaText": "-2,1%", "deltaType": "down" }
+      },
+      "revenueLabels": ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+      "revenueSeries": [12000, 15000, 14000, 18000, 22000, 25000, 26800],
+      "statusBase": { "active": 75, "inactive": 25 },
+      "channels": [
+        { "name": "Indicação", "leads": 124, "conversion": "38%", "revenue": "R$ 9.820" },
+        { "name": "Google", "leads": 96, "conversion": "29%", "revenue": "R$ 7.120" },
+        { "name": "Instagram", "leads": 87, "conversion": "22%", "revenue": "R$ 5.340" }
+      ]
+    },
+    "30d": {
+      "metrics": {
+        "activeClients": { "value": 4812, "deltaText": "+9,1% no período", "deltaType": "up" },
+        "revenue": { "value": 136900, "deltaText": "+14,6%", "deltaType": "up" },
+        "closedOrders": { "value": 1493, "deltaText": "meta: 1600", "deltaType": "neutral" },
+        "avgTicket": { "value": 241, "deltaText": "-1,2%", "deltaType": "down" }
+      },
+      "revenueLabels": ["S1", "S2", "S3", "S4"],
+      "revenueSeries": [28400, 31500, 35900, 41100],
+      "statusBase": { "active": 78, "inactive": 22 },
+      "channels": [
+        { "name": "Google", "leads": 441, "conversion": "31%", "revenue": "R$ 35.400" },
+        { "name": "Indicação", "leads": 382, "conversion": "39%", "revenue": "R$ 33.190" },
+        { "name": "Instagram", "leads": 320, "conversion": "24%", "revenue": "R$ 21.870" }
+      ]
+    },
+    "90d": {
+      "metrics": {
+        "activeClients": { "value": 14120, "deltaText": "+11,8% no período", "deltaType": "up" },
+        "revenue": { "value": 391300, "deltaText": "+17,2%", "deltaType": "up" },
+        "closedOrders": { "value": 4320, "deltaText": "meta: 4500", "deltaType": "neutral" },
+        "avgTicket": { "value": 236, "deltaText": "-0,8%", "deltaType": "down" }
+      },
+      "revenueLabels": ["Mês 1", "Mês 2", "Mês 3"],
+      "revenueSeries": [112400, 127700, 151200],
+      "statusBase": { "active": 81, "inactive": 19 },
+      "channels": [
+        { "name": "Google", "leads": 1331, "conversion": "32%", "revenue": "R$ 98.400" },
+        { "name": "Indicação", "leads": 1208, "conversion": "41%", "revenue": "R$ 116.920" },
+        { "name": "Instagram", "leads": 970, "conversion": "25%", "revenue": "R$ 72.510" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "periods": {
+    "7d": {
+      "kpis": {
+        "ordersToday": { "value": 128, "sub": "+12% em relação a ontem", "type": "up" },
+        "pending": { "value": 14, "sub": "7 críticas aguardando ação", "type": "warn" },
+        "tma": { "value": "5,2", "sub": "Tempo médio de atendimento", "type": "neutral" },
+        "service24h": { "value": 243, "sub": "SLA dentro da meta", "type": "up" }
+      },
+      "productionLabels": ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+      "productionSeries": [22, 30, 45, 38, 50, 48, 55],
+      "volumeLabels": ["Atendimento", "Financeiro", "Comercial"],
+      "volumeSeries": [120, 80, 95],
+      "activities": [
+        { "date": "29/05/2026 14:22", "operation": "Atualização de cadastro", "status": "Concluído" },
+        { "date": "29/05/2026 13:11", "operation": "Agendamento", "status": "Pendente" },
+        { "date": "29/05/2026 11:48", "operation": "Geração de relatório", "status": "Concluído" }
+      ]
+    },
+    "30d": {
+      "kpis": {
+        "ordersToday": { "value": 522, "sub": "+8% no período", "type": "up" },
+        "pending": { "value": 39, "sub": "12 críticas aguardando ação", "type": "warn" },
+        "tma": { "value": "5,6", "sub": "Tempo médio de atendimento", "type": "neutral" },
+        "service24h": { "value": 1048, "sub": "SLA com oscilação leve", "type": "warn" }
+      },
+      "productionLabels": ["S1", "S2", "S3", "S4"],
+      "productionSeries": [180, 210, 232, 248],
+      "volumeLabels": ["Atendimento", "Financeiro", "Comercial"],
+      "volumeSeries": [420, 318, 355],
+      "activities": [
+        { "date": "29/05/2026 14:22", "operation": "Atualização de cadastro", "status": "Concluído" },
+        { "date": "29/05/2026 13:11", "operation": "Reprocessamento de lote", "status": "Pendente" },
+        { "date": "29/05/2026 11:48", "operation": "Fechamento diário", "status": "Concluído" }
+      ]
+    },
+    "90d": {
+      "kpis": {
+        "ordersToday": { "value": 1530, "sub": "+15% no período", "type": "up" },
+        "pending": { "value": 88, "sub": "26 críticas aguardando ação", "type": "warn" },
+        "tma": { "value": "5,4", "sub": "Tempo médio de atendimento", "type": "neutral" },
+        "service24h": { "value": 3121, "sub": "SLA dentro do planejado", "type": "up" }
+      },
+      "productionLabels": ["Mês 1", "Mês 2", "Mês 3"],
+      "productionSeries": [742, 913, 988],
+      "volumeLabels": ["Atendimento", "Financeiro", "Comercial"],
+      "volumeSeries": [1230, 870, 1020],
+      "activities": [
+        { "date": "29/05/2026 14:22", "operation": "Atualização de cadastro", "status": "Concluído" },
+        { "date": "29/05/2026 13:11", "operation": "Ajuste de SLA", "status": "Pendente" },
+        { "date": "29/05/2026 11:48", "operation": "Conciliação operacional", "status": "Concluído" }
+      ]
+    }
+  }
+}
