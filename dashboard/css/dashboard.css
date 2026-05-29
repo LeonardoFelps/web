@@ -68,6 +68,22 @@ body { background: var(--bg); color: var(--text); transition: background .2s eas
   background: color-mix(in srgb, var(--card) 88%, #94a3b8 12%);
   border-color: color-mix(in srgb, var(--line) 65%, #94a3b8 35%);
 }
+.form-select-sm {
+  border-radius: 8px;
+  border-color: var(--line);
+  background-color: var(--card);
+  color: var(--text);
+}
 @media (max-width: 768px) {
+  .container-fluid > .row { margin-left: 0; margin-right: 0; }
+  main { width: 100%; max-width: 100%; }
+  .d-flex.align-items-center.gap-2 {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .d-flex.gap-2.mb-3[role="group"] { flex-wrap: wrap; }
+  .badge-soft { white-space: normal; }
+  .btn-sm { padding: .34rem .56rem; }
   .chart-wrap { min-height: 210px; }
 }

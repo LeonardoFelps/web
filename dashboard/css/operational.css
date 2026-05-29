@@ -61,4 +61,35 @@ th { color: var(--muted); background: color-mix(in srgb, var(--card) 88%, #64748
   border-color: color-mix(in srgb, #1d4ed8 65%, white);
   color: #fff;
 }
-@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  body { overflow-x: hidden; }
+  header {
+    font-size: 16px;
+    padding: 10px 12px;
+    align-items: flex-start;
+  }
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .period-switch {
+    width: 100%;
+    margin-left: 0;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .period-btn,
+  .theme-btn,
+  .back-link {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+  .layout {
+    padding: 12px;
+    gap: 12px;
+  }
+}
